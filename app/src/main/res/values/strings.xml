@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TodoAacs</string>
+    <string name="app_name">ToDoListApp</string>
+    <string name="app_title">2-Do App</string>
+    <string name="your_tasks">Your Tasks</string>
+    <string name="task">Task</string>
+    <string name="date_to_do">Date to do</string>
+    <string name="save">Save</string>
+    <string name="create_task">Create Task</string>
+    <string name="task_textbox_hint">What\'s your task to do?</string>
+    <string name="demo_task_date">2021 Jan 01</string>
+    <string name="calender_image">Calender Image</string>
+    <string name="delete_task_image_button_description">Delete Task Image Button</string>
+    <string name="floating_action_button_description">Floating action button to create new todo</string>
 </resources>
