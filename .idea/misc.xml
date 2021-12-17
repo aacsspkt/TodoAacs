@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Github/androidrepo/TodoAacs/app/src/main/res/drawable/ic_outline_calendar_today_24.xml" value="0.25416666666666665" />
+        <entry key="..\:/Github/androidrepo/TodoAacs/app/src/main/res/layout/_custom_textview.xml" value="0.72" />
+        <entry key="..\:/Github/androidrepo/TodoAacs/app/src/main/res/layout/_task_list_row.xml" value="0.536" />
         <entry key="..\:/Github/androidrepo/TodoAacs/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
       </map>
     </option>
@@ -12,5 +15,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.536" />
+      </ProjectState>
+    </option>
   </component>
 </project>

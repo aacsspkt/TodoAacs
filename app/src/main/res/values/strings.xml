@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ToDoListApp</string>
+    <string name="app_name">Todo AACS App</string>
     <string name="app_title">2-Do App</string>
     <string name="your_tasks">Your Tasks</string>
     <string name="task">Task</string>
