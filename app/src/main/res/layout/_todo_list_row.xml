@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="8dp"
-    android:elevation="8dp">
+    android:elevation="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
@@ -20,7 +22,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/task"
-            android:textColor="@color/primaryDarkColor"
             android:textStyle="bold"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/container"
@@ -47,7 +48,7 @@
             android:layout_height="18dp"
             android:layout_marginStart="56dp"
             android:contentDescription="@string/calender_image"
-            android:src="@drawable/ic_outline_calendar_today_24"
+            android:src="@drawable/ic_calender"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -84,7 +85,7 @@
             app:layout_constraintEnd_toEndOf="@id/container"
             app:layout_constraintTop_toTopOf="@id/container"
             app:layout_constraintVertical_bias="0.485"
-            app:srcCompat="@drawable/ic_baseline_delete_outline_24" />
+            app:srcCompat="@drawable/ic_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
