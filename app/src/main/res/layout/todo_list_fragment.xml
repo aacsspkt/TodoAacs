@@ -17,13 +17,13 @@
         android:text="@string/your_tasks"
         android:textColor="@color/secondaryDarkColor"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/rvTodoList"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTodoList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvTodoList"
+        android:id="@+id/recyclerViewTodoList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="100dp"
