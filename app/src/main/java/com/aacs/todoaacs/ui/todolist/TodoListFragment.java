@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aacs.todoaacs.R;
+import com.aacs.todoaacs.databinding.TodoListFragmentBinding;
 import com.aacs.todoaacs.listener.FragmentChangeListener;
 import com.aacs.todoaacs.ui.todo.TodoFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +24,7 @@ public class TodoListFragment extends Fragment {
 
     private static final String TAG = newInstance().toString();
     private TodoListViewModel todoListViewModel;
+    private TodoListFragmentBinding binding;
 
     public static TodoListFragment newInstance() {
         return new TodoListFragment();
@@ -31,13 +33,12 @@ public class TodoListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.todo_list_fragment, container, false);
 
-        FloatingActionButton buttonCreateNewTodo = view.findViewById(R.id.buttonCreateNewTodo);
+        binding = TodoListFragmentBinding.inflate(getLayoutInflater());
 
-        buttonCreateNewTodo.setOnClickListener(this::showTodoFragment);
+        binding.buttonCreateNewTodo.setOnClickListener(this::showTodoFragment);
 
-        return view;
+        return binding.getRoot();
     }
 
     private void showTodoFragment(View view) {
