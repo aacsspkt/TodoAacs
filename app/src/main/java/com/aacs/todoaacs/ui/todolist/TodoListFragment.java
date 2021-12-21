@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -26,6 +25,7 @@ import com.aacs.todoaacs.model.TodoStatus;
 import com.aacs.todoaacs.ui.todo.TodoFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoListFragment extends Fragment {
     public static final String RESUlT = "Result";
@@ -38,12 +38,14 @@ public class TodoListFragment extends Fragment {
     private TodoListFragmentBinding binding;
     private TodoListAdapter adapter;
 
+    public static TodoListFragment newInstance() {
+        return new TodoListFragment();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Log.w(TAG, "Fragment View Created");
-
 
         binding = TodoListFragmentBinding.inflate(getLayoutInflater());
         todoListFragmentViewModel = new ViewModelProvider(this).get(TodoListFragmentViewModel.class);
@@ -53,7 +55,9 @@ public class TodoListFragment extends Fragment {
         setDeleteButtonClickListener();
         setCheckBoxClickListener();
         initRecyclerView();
-        setViewModelObserver(getViewLifecycleOwner());
+
+        todoListFragmentViewModel.getTodosLiveData()
+                .observe(getViewLifecycleOwner(), this::passDataToAdapter);
 
         binding.buttonCreateNewTodo.setOnClickListener(this::createNewTodo);
 
@@ -67,16 +71,14 @@ public class TodoListFragment extends Fragment {
                 (requestKey, result) -> Toast.makeText(getContext(),
                         result.getString(RESUlT),
                         Toast.LENGTH_SHORT).show()
-                );
+        );
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void setViewModelObserver(LifecycleOwner owner) {
-        todoListFragmentViewModel.getTodosLiveData().observe(owner, todoModels -> {
-                    Log.w(TAG, "Todos Arraylist Changed.");
-                    adapter.setTodos((ArrayList<TodoModel>) todoModels);
-                }
-        );
+    private void passDataToAdapter(List<TodoModel> todos) {
+        Log.w(TAG, "ArrayList passed to adapter.");
+        adapter.setTodos((ArrayList<TodoModel>) todos);
+        adapter.notifyDataSetChanged();
     }
 
     private void setCheckBoxClickListener() {
@@ -89,14 +91,15 @@ public class TodoListFragment extends Fragment {
                 textView.setPaintFlags(0);
             }
             todoListFragmentViewModel.updateTodo(todo);
-            Log.w(TAG, "Todo with uid " + todo.getUid() + " Updated");
         };
     }
 
     private void setDeleteButtonClickListener() {
         deleteButtonClickListener = (view, todo) -> {
             todoListFragmentViewModel.deleteTodo(todo);
-            Log.w(TAG, "Todo with uid " + todo.getUid() + " Deleted");
+            Toast.makeText(getContext(),
+                    "Deleted successfully",
+                    Toast.LENGTH_SHORT).show();
         };
     }
 
@@ -105,18 +108,14 @@ public class TodoListFragment extends Fragment {
     }
 
     private void updateTodo(View view, TodoModel todo) {
-        Log.d(TAG, "Recycle View Item Clicked.");
-        Bundle bundle = new Bundle();
-        bundle.putInt(TodoFragment.UID, todo.getUid());
-        Log.d(TAG,
-                "Argument Sent: UID = " + todo.getUid());
-        TodoFragment todoFragment = new TodoFragment();
-        todoFragment.setArguments(bundle);
         FragmentChangeListener listener = (FragmentChangeListener) getActivity();
         if (listener != null) {
-            listener.replaceFragment(todoFragment);
+            listener.replaceFragment(TodoFragment.newInstance(todo.getUid()));
         } else {
-            Log.d(TAG, "Fragment not associated with Activity");
+            Log.w(TAG, "Fragment not associated with Activity");
+            Toast.makeText(getContext(),
+                    "Error occurred while going to new Fragment",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -131,12 +130,14 @@ public class TodoListFragment extends Fragment {
     }
 
     private void createNewTodo(View view) {
-        Log.d(TAG, "Floating Action Button Clicked");
         FragmentChangeListener listener = (FragmentChangeListener) getActivity();
         if (listener != null) {
             listener.replaceFragment(new TodoFragment());
         } else {
             Log.d(TAG, "Fragment not associated with Activity");
+            Toast.makeText(getContext(),
+                    "Error occurred while going to new Fragment",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
