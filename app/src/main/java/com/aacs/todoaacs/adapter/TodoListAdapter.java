@@ -1,5 +1,6 @@
 package com.aacs.todoaacs.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +34,10 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
         this.checkBoxCheckedChangeListener = checkBoxClickListener;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setTodos(ArrayList<TodoModel> todos) {
         this.todos = todos;
-        notifyItemRangeInserted(0, todos.size());
-//        notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     @NonNull
