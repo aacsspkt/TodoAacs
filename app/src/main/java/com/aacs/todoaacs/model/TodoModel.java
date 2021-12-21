@@ -61,6 +61,9 @@ public class TodoModel {
         this.isCompleted = isCompleted;
     }
 
+    /*
+    * Just for debugging purpose
+    * */
     @NonNull
     @Override
     public String toString() {
