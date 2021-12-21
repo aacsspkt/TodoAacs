@@ -3,30 +3,35 @@ package com.aacs.todoaacs.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aacs.todoaacs.databinding.TodoListRowBinding;
-import com.aacs.todoaacs.listener.DeleteButtonClickListener;
+import com.aacs.todoaacs.listener.CheckBoxCheckedChangeListener;
 import com.aacs.todoaacs.listener.RecyclerViewItemClickListener;
 import com.aacs.todoaacs.model.TodoModel;
 import com.aacs.todoaacs.model.TodoStatus;
+import com.aacs.todoaacs.util.DateUtility;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoViewHolder> {
     private final RecyclerViewItemClickListener recyclerViewItemClickListener;
-    private final DeleteButtonClickListener deleteButtonClickListener;
+    private final RecyclerViewItemClickListener deleteButtonClickListener;
+    private final CheckBoxCheckedChangeListener checkBoxCheckedChangeListener;
     private ArrayList<TodoModel> todos;
 
     public TodoListAdapter(
             RecyclerViewItemClickListener recyclerViewItemClickListener,
-            DeleteButtonClickListener deleteButtonClickListener
+            RecyclerViewItemClickListener deleteButtonClickListener,
+            CheckBoxCheckedChangeListener checkBoxClickListener
     ) {
         this.recyclerViewItemClickListener = recyclerViewItemClickListener;
         this.deleteButtonClickListener = deleteButtonClickListener;
+        this.checkBoxCheckedChangeListener = checkBoxClickListener;
     }
 
     public void setTodos(ArrayList<TodoModel> todos) {
@@ -52,10 +57,11 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
 
     @Override
     public int getItemCount() {
+        if (todos == null) return 0;
         return todos.size();
     }
 
-    protected class TodoViewHolder extends RecyclerView.ViewHolder {
+    public class TodoViewHolder extends RecyclerView.ViewHolder {
         private static final String TAG = "TodoViewHolder";
         private final TodoListRowBinding binding;
 
@@ -64,20 +70,25 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
             this.binding = binding;
             binding.buttonDeleteTask.setOnClickListener(this::onDeleteButtonClick);
             binding.getRoot().setOnClickListener(this::onViewClick);
+            binding.checkBoxIsCompleted.setOnCheckedChangeListener(this::onCheckBoxClick);
+        }
+
+        private void onCheckBoxClick(CompoundButton compoundButton, boolean b) {
+            checkBoxCheckedChangeListener.onCheckedChanged(compoundButton, b, todos.get(getAdapterPosition()), binding.textViewTask);
         }
 
         private void onDeleteButtonClick(View v) {
-            deleteButtonClickListener.onButtonClick(v, getAdapterPosition());
+            deleteButtonClickListener.onClick(v, todos.get(getAdapterPosition()));
         }
 
         public void setData(TodoModel todo) {
             binding.textViewTask.setText(todo.getTask());
-            binding.textViewDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(todo.getDate()));
+            binding.textViewDate.setText(DateUtility.dateToString(DateUtility.DEFAULT_DATE_FORMAT, todo.getDate()));
             binding.checkBoxIsCompleted.setChecked(todo.getIsCompleted().equals(TodoStatus.YES));
         }
 
         public void onViewClick(View v) {
-            recyclerViewItemClickListener.onItemClick(v, getAdapterPosition());
+            recyclerViewItemClickListener.onClick(v, todos.get(getAdapterPosition()));
         }
     }
 }
