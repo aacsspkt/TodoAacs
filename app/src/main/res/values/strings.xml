@@ -6,7 +6,7 @@
     <string name="task">Task</string>
     <string name="date_to_do">Date to do</string>
     <string name="save">Save</string>
-    <string name="create_task">Create Task</string>
+    <string name="todo_task">Todo Task</string>
     <string name="task_textbox_hint">What\'s your task to do?</string>
     <string name="demo_task_date">2021 Jan 01</string>
     <string name="calender_image">Calender Image</string>
