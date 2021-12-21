@@ -16,7 +16,6 @@ import com.aacs.todoaacs.model.TodoStatus;
 import com.aacs.todoaacs.util.DateUtility;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoViewHolder> {
     private final RecyclerViewItemClickListener recyclerViewItemClickListener;
@@ -36,7 +35,8 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
 
     public void setTodos(ArrayList<TodoModel> todos) {
         this.todos = todos;
-        notifyDataSetChanged();
+        notifyItemRangeInserted(0, todos.size());
+//        notifyDataSetChanged();
     }
 
     @NonNull
@@ -62,7 +62,6 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
     }
 
     public class TodoViewHolder extends RecyclerView.ViewHolder {
-        private static final String TAG = "TodoViewHolder";
         private final TodoListRowBinding binding;
 
         public TodoViewHolder(@NonNull TodoListRowBinding binding) {
