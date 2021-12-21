@@ -10,7 +10,6 @@ import androidx.room.Update;
 
 import com.aacs.todoaacs.model.TodoModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
