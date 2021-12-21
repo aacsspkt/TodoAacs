@@ -12,10 +12,12 @@ import java.util.List;
 
 public class TodoRepository {
     private final TodoDao todoDao;
+    private final LiveData<List<TodoModel>> todosLiveDta;
 
     public TodoRepository(Application application) {
         TodoDatabase db = TodoDatabase.getDatabase(application);
         todoDao = db.todoDao();
+        todosLiveDta = todoDao.getALL();
     }
 
     public void addTodo(TodoModel todo) {
@@ -35,6 +37,6 @@ public class TodoRepository {
     }
 
     public LiveData<List<TodoModel>> getTodos() {
-        return todoDao.getALL();
+        return todosLiveDta;
     }
 }
