@@ -2,6 +2,8 @@ package com.aacs.todoaacs.listener;
 
 import android.view.View;
 
+import com.aacs.todoaacs.model.TodoModel;
+
 public interface RecyclerViewItemClickListener {
-    void onItemClick(View view, int position);
+    void onClick(View view, TodoModel todo);
 }
