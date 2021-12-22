@@ -16,17 +16,20 @@ This is Todo App written in Java for Android.
 - One Mai Activity & Two Fragments, one for listing todos and other for creating, and editing todo 
 - Card list item
 - CheckBox for completed todos
-- delete todo in one click
+- Delete todo in one click
+- Rotation Problem fix
 
-## Tools used:
+## Tools & Technology:
 
 - Android Studio IDE
 - Java
 - XML
-- Room Datebase
+- MVVM Architecture
+- Recycler View
+- Crud with Room Datebase
 - Architechture Components:
    - View Binding
-   - Lifecycle aware component: View Model, LiveData
+   - Lifecycle aware component: View Model, LiveData (Observer Pattern)
 
 ## Dependencies:
 
