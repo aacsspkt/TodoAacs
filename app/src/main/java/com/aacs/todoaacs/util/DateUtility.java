@@ -20,6 +20,7 @@ public class DateUtility {
         return format.format(date);
     }
 
+    //return current date in requested pattern
     public static Date today(String pattern) {
         format = new SimpleDateFormat(pattern, Locale.ENGLISH);
         String formattedDate = format.format(Calendar.getInstance().getTime());
