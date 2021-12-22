@@ -1,6 +1,7 @@
 package com.aacs.todoaacs.adapter;
 
 import android.annotation.SuppressLint;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,14 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
         TodoModel todo = todos.get(position);
         holder.setData(todo);
+        if (todo.getIsCompleted().equals(TodoStatus.YES)) {
+            holder.binding.textViewTask.setPaintFlags(
+                    holder.binding.textViewTask.getPaintFlags() |
+                            Paint.STRIKE_THRU_TEXT_FLAG
+            );
+        } else {
+            holder.binding.textViewTask.setPaintFlags(0);
+        }
     }
 
     @Override
@@ -74,7 +83,7 @@ public class TodoListAdapter extends RecyclerView.Adapter<TodoListAdapter.TodoVi
         }
 
         private void onCheckBoxClick(CompoundButton compoundButton, boolean b) {
-            checkBoxCheckedChangeListener.onCheckedChanged(compoundButton, b, todos.get(getAdapterPosition()), binding.textViewTask);
+            checkBoxCheckedChangeListener.onCheckedChanged(compoundButton, b, todos.get(getAdapterPosition()));
         }
 
         private void onDeleteButtonClick(View v) {

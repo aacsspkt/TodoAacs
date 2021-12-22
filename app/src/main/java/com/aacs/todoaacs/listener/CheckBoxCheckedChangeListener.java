@@ -6,5 +6,5 @@ import android.widget.TextView;
 import com.aacs.todoaacs.model.TodoModel;
 
 public interface CheckBoxCheckedChangeListener {
-    void onCheckedChanged(View view, boolean b, TodoModel todoModel, TextView textView);
+    void onCheckedChanged(View view, boolean b, TodoModel todoModel);
 }

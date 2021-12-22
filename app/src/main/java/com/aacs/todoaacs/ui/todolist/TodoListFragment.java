@@ -1,7 +1,6 @@
 package com.aacs.todoaacs.ui.todolist;
 
 import android.annotation.SuppressLint;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,16 +27,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodoListFragment extends Fragment {
+    // key for putting result in bundle
     public static final String RESUlT = "Result";
+    // key for sending result request
     public static final String REQUEST_KEY = "Request_Key";
+    // Tag for logging
     private final String TAG = this.toString();
+
+    //listeners for recycler view
     private RecyclerViewItemClickListener recyclerViewItemClickListener;
     private RecyclerViewItemClickListener deleteButtonClickListener;
     private CheckBoxCheckedChangeListener checkBoxClickListener;
+
+    //viewModel for this fragment
     private TodoListFragmentViewModel todoListFragmentViewModel;
+    //view binding for this fragment
     private TodoListFragmentBinding binding;
+    //recycler view adapter
     private TodoListAdapter adapter;
 
+    //return new new instance of this fragment
     public static TodoListFragment newInstance() {
         return new TodoListFragment();
     }
@@ -56,14 +65,20 @@ public class TodoListFragment extends Fragment {
         setCheckBoxClickListener();
         initRecyclerView();
 
+        // observe todos live data
         todoListFragmentViewModel.getTodosLiveData()
                 .observe(getViewLifecycleOwner(), this::passDataToAdapter);
 
+        // set click listener for floating action button
         binding.buttonCreateNewTodo.setOnClickListener(this::createNewTodo);
 
+        //returning root view in binding
         return binding.getRoot();
     }
 
+    /*
+    * set result listener for this fragment
+    * */
     private void checkFragmentResults() {
         getParentFragmentManager().setFragmentResultListener(
                 REQUEST_KEY,
@@ -74,6 +89,9 @@ public class TodoListFragment extends Fragment {
         );
     }
 
+    /*
+    * pass todos arraylist to adapter
+    * */
     @SuppressLint("NotifyDataSetChanged")
     private void passDataToAdapter(List<TodoModel> todos) {
         Log.w(TAG, "ArrayList passed to adapter.");
@@ -81,19 +99,28 @@ public class TodoListFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    /*
+    * set checkbox click listener
+    * */
     private void setCheckBoxClickListener() {
-        checkBoxClickListener = (view, b, todo, textView) -> {
-            if (b) {
-                todo.setIsCompleted(TodoStatus.YES);
-                textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            } else {
+        checkBoxClickListener = (view, b, todo) -> {
+            if (!b) {
+                Log.d(TAG, "Todo=\"" + todo.getTask() + "\" Unchecked");
                 todo.setIsCompleted(TodoStatus.NO);
-                textView.setPaintFlags(0);
+            } else {
+                Log.d(TAG, "Todo=\"" + todo.getTask() + "\" Checked");
+                todo.setIsCompleted(TodoStatus.YES);
             }
             todoListFragmentViewModel.updateTodo(todo);
+            Toast.makeText(getContext(),
+                    "Updated Successfully",
+                    Toast.LENGTH_SHORT).show();
         };
     }
 
+    /*
+    * set delete button listener
+    * */
     private void setDeleteButtonClickListener() {
         deleteButtonClickListener = (view, todo) -> {
             todoListFragmentViewModel.deleteTodo(todo);
@@ -103,11 +130,17 @@ public class TodoListFragment extends Fragment {
         };
     }
 
+    /*
+    * set recycler view item click listener
+    * */
     private void setRecyclerViewItemClickListener() {
-        recyclerViewItemClickListener = this::updateTodo;
+        recyclerViewItemClickListener = this::editTodo;
     }
 
-    private void updateTodo(View view, TodoModel todo) {
+    /*
+    * go to TodoFragment with arg for edit
+    * */
+    private void editTodo(View view, TodoModel todo) {
         FragmentChangeListener listener = (FragmentChangeListener) getActivity();
         if (listener != null) {
             listener.replaceFragment(TodoFragment.newInstance(todo.getUid()));
@@ -119,6 +152,10 @@ public class TodoListFragment extends Fragment {
         }
     }
 
+
+    /*
+    * initialize recycler view
+    * */
     private void initRecyclerView() {
         adapter = new TodoListAdapter(
                 recyclerViewItemClickListener,
@@ -129,6 +166,10 @@ public class TodoListFragment extends Fragment {
         binding.recyclerViewTodoList.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+
+    /*
+    * go to TodoFragment to create new todo_
+    * */
     private void createNewTodo(View view) {
         FragmentChangeListener listener = (FragmentChangeListener) getActivity();
         if (listener != null) {
@@ -141,6 +182,10 @@ public class TodoListFragment extends Fragment {
         }
     }
 
+
+    /*
+    * override method to return fragment name
+    * */
     @NonNull
     @Override
     public String toString() {
