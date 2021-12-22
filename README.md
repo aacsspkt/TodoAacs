@@ -50,4 +50,7 @@ androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 ```
 
 ## Contribution
-Feel free to `fork` this project and add whatever you like (Helping with the TODOs would be amazing tho). If you have any suggestions or any comments please feel free to contact me or to open an issue.
+Feel free to `fork` this project and add whatever you like (Though helping would be great). If you have any suggestions or any comments please feel free to contact me or to open an issue.
+
+## License
+[MIT License](./LICENSE)
