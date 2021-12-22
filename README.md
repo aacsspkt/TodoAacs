@@ -25,7 +25,7 @@ This is Todo App written in Java for Android.
 - Java
 - XML
 - MVVM Architecture
-- Recycler View
+- Recycler View, Card View
 - Crud with Room Datebase
 - Architechture Components:
    - View Binding
