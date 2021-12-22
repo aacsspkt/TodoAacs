@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements FragmentChangeLis
         setContentView(R.layout.activity_main);
     }
 
+    // copied from stackoverflow
+    //replace and add to back stack provided fragment
     @Override
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
