@@ -19,7 +19,7 @@ This is Todo App written in Java for Android.
 - Delete todo in one click
 - Rotation Problem fix
 
-## Tools & Technology:
+## Tools & Technology
 
 - Android Studio IDE
 - Java
@@ -31,7 +31,7 @@ This is Todo App written in Java for Android.
    - View Binding
    - Lifecycle aware component: View Model, LiveData (Observer Pattern)
 
-## Dependencies:
+## Dependencies
 
 ```
 implementation 'androidx.appcompat:appcompat:1.4.0'  
