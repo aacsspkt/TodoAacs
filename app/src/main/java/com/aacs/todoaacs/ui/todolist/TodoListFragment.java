@@ -112,9 +112,6 @@ public class TodoListFragment extends Fragment {
                 todo.setIsCompleted(TodoStatus.YES);
             }
             todoListFragmentViewModel.updateTodo(todo);
-            Toast.makeText(getContext(),
-                    "Updated Successfully",
-                    Toast.LENGTH_SHORT).show();
         };
     }
 
